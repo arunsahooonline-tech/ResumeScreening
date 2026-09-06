@@ -1,0 +1,33 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+backend/.venv/
+.venv/
+
+# Frontend
+node_modules/
+dist/
+.vite/
+
+# Generated application data
+chroma_store/
+
+# Local files and logs
+*.log
+out.txt
+
+# IDE files
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+.DS_Store
