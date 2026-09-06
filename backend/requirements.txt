@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+python-multipart
+python-dotenv
+google-genai
+langchain
+langchain-community
+langchain-google-genai
+langchain-groq
+langchain-classic
+chromadb
+pypdf
+docx2txt
+lark
