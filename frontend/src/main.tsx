@@ -18,6 +18,10 @@ const defaultJobDescription =
   'We are hiring a Senior Python Developer with experience in backend APIs, AI systems, cloud computing, and team leadership.'
 
 function App() {
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    const savedTheme = localStorage.getItem('resume-screening-theme')
+    return savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'dark'
+  })
   const [currentStep, setCurrentStep] = useState(0)
   const [stepCompleted, setStepCompleted] = useState<StepState>([true, false, false])
   const [jobDescription, setJobDescription] = useState(defaultJobDescription)
@@ -37,6 +41,11 @@ function App() {
       .then((response) => setApiOnline(response.ok))
       .catch(() => setApiOnline(false))
   }, [])
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    localStorage.setItem('resume-screening-theme', theme)
+  }, [theme])
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newFiles = Array.from(event.target.files ?? [])
@@ -161,6 +170,7 @@ function App() {
             type="button"
             className={`nav-btn ${currentStep === 0 ? 'active' : ''}`}
             onClick={() => setCurrentStep(0)}
+            aria-current={currentStep === 0 ? 'step' : undefined}
           >
             <span>{stepCompleted[0] ? '✅' : '1'}</span> Welcome
           </button>
@@ -169,6 +179,7 @@ function App() {
             type="button"
             className={`nav-btn ${currentStep === 1 ? 'active' : ''}`}
             onClick={() => setCurrentStep(1)}
+            aria-current={currentStep === 1 ? 'step' : undefined}
           >
             <span>{stepCompleted[1] ? '✅' : '2'}</span> Upload & Analyze
           </button>
@@ -178,6 +189,7 @@ function App() {
             className={`nav-btn ${currentStep === 2 ? 'active' : ''}`}
             onClick={() => setCurrentStep(2)}
             disabled={!stepCompleted[1]}
+            aria-current={currentStep === 2 ? 'step' : undefined}
           >
             <span>{stepCompleted[2] ? '✅' : '3'}</span> Query Results
           </button>
@@ -202,8 +214,21 @@ function App() {
             <h1>Resume Screening Suite</h1>
           </div>
 
-          <div className={`status-pill ${apiOnline ? 'online' : 'offline'}`}>
-            {apiOnline ? 'API online' : 'API offline'}
+          <div className="topbar-actions">
+            <button
+              type="button"
+              className="theme-switch"
+              onClick={() => setTheme((currentTheme) => (currentTheme === 'dark' ? 'light' : 'dark'))}
+              aria-pressed={theme === 'light'}
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+            >
+              <span aria-hidden="true">{theme === 'dark' ? '☀' : '☾'}</span>
+              {theme === 'dark' ? 'Light theme' : 'Dark theme'}
+            </button>
+
+            <div className={`status-pill ${apiOnline ? 'online' : 'offline'}`}>
+              {apiOnline ? 'API online' : 'API offline'}
+            </div>
           </div>
         </header>
 
