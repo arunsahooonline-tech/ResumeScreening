@@ -1,14 +1,27 @@
-fastapi
-uvicorn[standard]
-python-multipart
-python-dotenv
+# Google Gemini
 google-genai
-langchain
-langchain-community
 langchain-google-genai
-langchain-groq
+
+# LangChain
+langchain
+langchain-core
+langchain-community
 langchain-classic
+langchain-text-splitters
+langchain-chroma
+
+# Vector Database
 chromadb
+
+# Groq
+langchain-groq
+
+# Resume/document processing
 pypdf
 docx2txt
-lark
+
+# Environment variables
+python-dotenv
+
+# Streamlit UI
+streamlit
